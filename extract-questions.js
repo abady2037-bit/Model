@@ -1,7 +1,6 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
 import { createClient } from '@supabase/supabase-js';
 import fs from 'fs';
-import path from 'path';
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -20,7 +19,6 @@ const genAI = new GoogleGenerativeAI(geminiApiKey);
 
 async function processAllPDFs() {
   try {
-    // البحث عن جميع ملفات الـ PDF في المجلد الحالي
     const files = fs.readdirSync('./').filter(file => file.endsWith('.pdf'));
 
     if (files.length === 0) {
@@ -41,7 +39,7 @@ async function processAllPDFs() {
       });
 
       const prompt = `
-      أنت خبير في اختبارات الهيئة السعودية للتخصصات الصحيات (SNLE). 
+      أنت خبير في اختبارات الهيئة السعودية للتخصصات الصحية (SNLE). 
       قم باستخراج جميع الأسئلة من هذا الملف وتصنيف كل سؤال إلى أحد الأقسام الخمسة التالية حصراً:
       1. Nursing Fundamentals
       2. Adult Nursing
@@ -89,5 +87,4 @@ async function processAllPDFs() {
   }
 }
 
-// تشغيل الفحص والتنفيذ لجميع الملفات
 processAllPDFs();
